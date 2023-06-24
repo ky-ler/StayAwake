@@ -8,6 +8,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
         <Authors>ky-ler</Authors>
+        <Version>1.0.1</Version>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
