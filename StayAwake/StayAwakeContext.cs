@@ -36,7 +36,7 @@ public class StayAwakeContext : ApplicationContext
             Visible = true
         };
 
-        _execStateThread = new Thread(SetThread);
+        _execStateThread = new Thread(SetThread) { IsBackground = true };
         _execStateThread.Start();
     }
 
@@ -45,7 +45,6 @@ public class StayAwakeContext : ApplicationContext
         _trayIcon.Visible = false;
         // Reset to default ThreadExecutionState before closing
         SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);
-        _execStateThread.Interrupt();
         Application.Exit();
     }
 
@@ -69,8 +68,8 @@ public class StayAwakeContext : ApplicationContext
         while (true)
         {
             SetThreadExecutionState(_isActive ?
-                EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_CONTINUOUS :
-                EXECUTION_STATE.ES_CONTINUOUS);
+            EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_CONTINUOUS :
+            EXECUTION_STATE.ES_CONTINUOUS);
 
             // Check every minute to see if _isActive is true/false
             Thread.Sleep(60000);
