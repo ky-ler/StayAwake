@@ -22,7 +22,7 @@ public class StayAwakeContext : ApplicationContext
     {
         _trayIcon = new NotifyIcon
         {
-            Icon = new Icon("Resources/gnome_eyes.ico"),
+            Icon = new Icon("Resources/icon.ico"),
             ContextMenuStrip = new ContextMenuStrip
             {
                 Items =
