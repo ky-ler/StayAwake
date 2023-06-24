@@ -22,7 +22,7 @@ public class StayAwakeContext : ApplicationContext
     {
         _trayIcon = new NotifyIcon
         {
-            Icon = new Icon("Resources/icon.ico"),
+            Icon = Properties.Resources.icon,
             ContextMenuStrip = new ContextMenuStrip
             {
                 Items =
