@@ -16,6 +16,7 @@ public class StayAwakeContext : ApplicationContext
 
     private readonly NotifyIcon _trayIcon;
     private bool _isActive;
+    private Thread _execStateThread;
 
     public StayAwakeContext()
     {
@@ -34,6 +35,9 @@ public class StayAwakeContext : ApplicationContext
             Text = "StayAwake - Inactive",
             Visible = true
         };
+
+        _execStateThread = new Thread(SetThread);
+        _execStateThread.Start();
     }
 
     private void Exit(object? sender, EventArgs e)
@@ -41,6 +45,7 @@ public class StayAwakeContext : ApplicationContext
         _trayIcon.Visible = false;
         // Reset to default ThreadExecutionState before closing
         SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);
+        _execStateThread.Interrupt();
         Application.Exit();
     }
 
@@ -57,8 +62,19 @@ public class StayAwakeContext : ApplicationContext
         }
 
         _isActive = !_isActive;
+    }
 
-        SetThreadExecutionState(_isActive ? EXECUTION_STATE.ES_DISPLAY_REQUIRED : EXECUTION_STATE.ES_CONTINUOUS);
+    private void SetThread()
+    {
+        while (true)
+        {
+            SetThreadExecutionState(_isActive ?
+                EXECUTION_STATE.ES_DISPLAY_REQUIRED | EXECUTION_STATE.ES_CONTINUOUS :
+                EXECUTION_STATE.ES_CONTINUOUS);
+
+            // Check every minute to see if _isActive is true/false
+            Thread.Sleep(60000);
+        }
     }
 
     private static void ShowAbout(object? sender, EventArgs e)
@@ -71,6 +87,5 @@ public class StayAwakeContext : ApplicationContext
             "StayAwake",
             MessageBoxButtons.OK,
             MessageBoxIcon.Information);
-
     }
 }
