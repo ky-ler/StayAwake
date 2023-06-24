@@ -1,6 +1,6 @@
 # StayAwake
 
-- Prevent your display from going to sleep
+- Prevent your computer from going to sleep
 
 - Created for Windows
 
