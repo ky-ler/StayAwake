@@ -26,7 +26,7 @@ public class StayAwakeContext : ApplicationContext
             {
                 Items =
                 {
-                    new ToolStripMenuItem("Active", null, KeepAwake),
+                    new ToolStripMenuItem("Activate", null, KeepAwake),
                     new ToolStripMenuItem("About", null, ShowAbout),
                     new ToolStripMenuItem("Exit", null, Exit)
                 }
@@ -50,7 +50,7 @@ public class StayAwakeContext : ApplicationContext
         {
             var buttonText = (ToolStripItem)sender;
 
-            _trayIcon.ContextMenuStrip!.Items[0].Text = buttonText.Text.Equals("Active") ? "Deactivate" : "Active";
+            _trayIcon.ContextMenuStrip!.Items[0].Text = buttonText.Text.Equals("Activate") ? "Deactivate" : "Activate";
             _trayIcon.Text = _trayIcon.Text.Equals("StayAwake - Inactive")
                 ? "StayAwake - Active"
                 : "StayAwake - Inactive";
